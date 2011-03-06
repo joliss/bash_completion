@@ -55,111 +55,6 @@ case ${UNAME} in
     *) USERLAND=${UNAME} ;;
 esac
 
-# Turn on extended globbing and programmable completion
-shopt -s extglob progcomp
-
-# A lot of the following one-liners were taken directly from the
-# completion examples provided with the bash 2.04 source distribution
-
-# Make directory commands see only directories
-complete -d pushd
-
-# The following section lists completions that are redefined later
-# Do NOT break these over multiple lines.
-#
-# START exclude -- do NOT remove this line
-# bzcmp, bzdiff, bz*grep, bzless, bzmore intentionally not here, see Debian: #455510
-complete -f -X '!*.?(t)bz?(2)' bunzip2 bzcat pbunzip2 pbzcat
-complete -f -X '!*.@(zip|ZIP|[ejw]ar|[EJW]AR|exe|EXE|pk3|wsz|zargo|xpi|sxw|o[tx]t|od[fgpst]|epub)' unzip zipinfo
-complete -f -X '*.Z' compress znew
-# zcmp, zdiff, z*grep, zless, zmore intentionally not here, see Debian: #455510
-complete -f -X '!*.@(Z|[gGd]z|t[ag]z)' gunzip zcat unpigz
-complete -f -X '!*.Z' uncompress
-# lzcmp, lzdiff intentionally not here, see Debian: #455510
-complete -f -X '!*.lzma' lzcat lzegrep lzfgrep lzgrep lzless lzmore unlzma
-complete -f -X '!*.@(xz|lzma)' unxz xzcat
-complete -f -X '!*.@(gif|jp?(e)g|miff|tif?(f)|pn[gm]|p[bgp]m|bmp|xpm|ico|xwd|tga|pcx|GIF|JP?(E)G|MIFF|TIF?(F)|PN[GM]|P[BGP]M|BMP|XPM|ICO|XWD|TGA|PCX)' ee
-complete -f -X '!*.@(gif|jp?(e)g|tif?(f)|png|p[bgp]m|bmp|x[bp]m|rle|rgb|pcx|fits|pm|GIF|JPG|JP?(E)G|TIF?(F)|PNG|P[BGP]M|BMP|X[BP]M|RLE|RGB|PCX|FITS|PM)' xv qiv
-complete -f -X '!*.@(@(?(e)ps|?(E)PS|pdf|PDF)?(.gz|.GZ|.bz2|.BZ2|.Z))' gv ggv kghostview
-complete -f -X '!*.@(dvi|DVI)?(.@(gz|Z|bz2))' xdvi
-complete -f -X '!*.@(dvi|DVI)?(.@(gz|Z|bz2))' kdvi
-complete -f -X '!*.@(dvi|DVI)' dvips dviselect dvitype dvipdf advi dvipdfm dvipdfmx
-complete -f -X '!*.@(pdf|PDF)' acroread gpdf xpdf
-complete -f -X '!*.@(?(e)ps|?(E)PS|pdf|PDF)' kpdf
-complete -f -X '!*.@(@(?(e)ps|?(E)PS|pdf|PDF|dvi|DVI)?(.gz|.GZ|.bz2|.BZ2)|cb[rz]|CB[RZ]|djv?(u)|DJV?(U)|dvi|DVI|gif|jp?(e)g|miff|tif?(f)|pn[gm]|p[bgp]m|bmp|xpm|ico|xwd|tga|pcx|GIF|JP?(E)G|MIFF|TIF?(F)|PN[GM]|P[BGP]M|BMP|XPM|ICO|XWD|TGA|PCX|fdf|FDF)' evince
-complete -f -X '!*.@(okular|@(?(e|x)ps|?(E|X)PS|pdf|PDF|dvi|DVI|cb[rz]|CB[RZ]|djv?(u)|DJV?(U)|dvi|DVI|gif|jp?(e)g|miff|tif?(f)|pn[gm]|p[bgp]m|bmp|xpm|ico|xwd|tga|pcx|GIF|JP?(E)G|MIFF|TIF?(F)|PN[GM]|P[BGP]M|BMP|XPM|ICO|XWD|TGA|PCX|epub|EPUB|odt|ODT|fb|FB|mobi|MOBI|g3|G3|chm|CHM|fdf|FDF)?(.?(gz|GZ|bz2|BZ2)))' okular
-complete -f -X '!*.@(?(e)ps|?(E)PS|pdf|PDF)' ps2pdf ps2pdf12 ps2pdf13 ps2pdf14 ps2pdfwr
-complete -f -X '!*.texi*' makeinfo texi2html
-complete -f -X '!*.@(?(la)tex|?(LA)TEX|texi|TEXI|dtx|DTX|ins|INS|ltx|LTX)' tex latex slitex jadetex pdfjadetex pdftex pdflatex texi2dvi
-complete -f -X '!*.@(mp3|MP3)' mpg123 mpg321 madplay
-complete -f -X '!*@(.@(mp?(e)g|MP?(E)G|wma|avi|AVI|asf|vob|VOB|bin|dat|divx|DIVX|vcd|ps|pes|fli|flv|FLV|fxm|FXM|viv|rm|ram|yuv|mov|MOV|qt|QT|wmv|mp[234]|MP[234]|m4[pv]|M4[PV]|mkv|MKV|og[gmv]|OG[GMV]|t[ps]|T[PS]|wav|WAV|flac|FLAC|asx|ASX|mng|MNG|srt|m[eo]d|M[EO]D|s[3t]m|S[3T]M|it|IT|xm|XM)|+([0-9]).@(vdr|VDR))' xine aaxine fbxine kaffeine dragon
-complete -f -X '!*.@(avi|asf|wmv)' aviplay
-complete -f -X '!*.@(rm?(j)|ra?(m)|smi?(l))' realplay
-complete -f -X '!*.@(mpg|mpeg|avi|mov|qt)' xanim
-complete -f -X '!*.@(ogg|OGG|m3u|flac|spx)' ogg123
-complete -f -X '!*.@(mp3|MP3|ogg|OGG|pls|m3u)' gqmpeg freeamp
-complete -f -X '!*.fig' xfig
-complete -f -X '!*.@(mid?(i)|MID?(I)|cmf|CMF)' playmidi
-complete -f -X '!*.@(mid?(i)|MID?(I)|rmi|RMI|rcp|RCP|[gr]36|[GR]36|g18|G18|mod|MOD|xm|XM|it|IT|x3m|X3M|s[3t]m|S[3T]M|kar|KAR)' timidity
-complete -f -X '!*.@(m[eo]d|M[EO]D|s[3t]m|S[3T]M|xm|XM|it|IT)' modplugplay modplug123
-complete -f -X '*.@(o|so|so.!(conf)|a|rpm|gif|GIF|jp?(e)g|JP?(E)G|mp3|MP3|mp?(e)g|MPG|avi|AVI|asf|ASF|ogg|OGG|class|CLASS)' vi vim gvim rvim view rview rgvim rgview gview emacs xemacs sxemacs kate kwrite
-complete -f -X '!*.@([eE][xX][eE]?(.[sS][oO])|[cC][oO][mM]|[sS][cC][rR])' wine
-complete -f -X '!*.@(zip|ZIP|z|Z|gz|GZ|tgz|TGZ)' bzme
-# konqueror not here on purpose, it's more than a web/html browser
-complete -f -X '!*.@(?([xX]|[sS])[hH][tT][mM]?([lL]))' netscape mozilla lynx opera galeon dillo elinks amaya firefox mozilla-firefox iceweasel google-chrome chromium-browser epiphany
-complete -f -X '!*.@(sxw|stw|sxg|sgl|doc?([mx])|dot?([mx])|rtf|txt|htm|html|odt|ott|odm)' oowriter
-complete -f -X '!*.@(sxi|sti|pps?(x)|ppt?([mx])|pot?([mx])|odp|otp)' ooimpress
-complete -f -X '!*.@(sxc|stc|xls?([bmx])|xlw|xlt?([mx])|[ct]sv|ods|ots)' oocalc
-complete -f -X '!*.@(sxd|std|sda|sdd|odg|otg)' oodraw
-complete -f -X '!*.@(sxm|smf|mml|odf)' oomath
-complete -f -X '!*.odb' oobase
-complete -f -X '!*.rpm' rpm2cpio
-complete -f -X '!*.s@(qlite?(3)|?(3)db)' sqlite3
-complete -f -X '!*.aux' bibtex
-complete -f -X '!*.po' poedit gtranslator kbabel lokalize
-complete -f -X '!*.@([Pp][Rr][Gg]|[Cc][Ll][Pp])' harbour gharbour hbpp
-complete -f -X '!*.[Hh][Rr][Bb]' hbrun
-complete -f -X '!*.ly' lilypond ly2dvi
-complete -f -X '!*.@(dif?(f)|?(d)patch)?(.@([gx]z|bz2|lzma))' cdiff
-complete -f -X '!*.@(dif?(f)|?(d)patch)' kompare
-complete -f -X '!*.lyx' lyx
-# FINISH exclude -- do not remove this line
-
-# start of section containing compspecs that can be handled within bash
-
-# user commands see only users
-complete -u su passwd write chfn groups slay w sux
-
-# bg completes with stopped jobs
-complete -A stopped -P '"%' -S '"' bg
-
-# other job commands
-complete -j -P '"%' -S '"' fg jobs disown
-
-# readonly and unset complete with shell variables
-complete -v readonly unset
-
-# set completes with set options
-complete -A setopt set
-
-# shopt completes with shopt options
-complete -A shopt shopt
-
-# helptopics
-complete -A helptopic help
-
-# unalias completes with aliases
-complete -a unalias
-
-# bind completes with readline bindings (make this more intelligent)
-complete -A binding bind
-
-# type and which complete on commands
-complete -c command type which
-
-# builtin completes on builtins
-complete -b builtin
-
 # start of section containing completion functions called by other functions
 
 # This function checks whether we have a given program on the system.
@@ -1125,11 +1020,6 @@ _dvd_devices()
 
 # start of section containing completion functions for external programs
 
-# a little help for FreeBSD ports users
-[ $UNAME = FreeBSD ] && complete -W 'index search fetch fetch-list extract \
-    patch configure build install reinstall deinstall clean clean-depends \
-    kernel buildworld' make
-
 # This function provides simple user@host completion
 #
 _user_at_host() {
@@ -1146,7 +1036,6 @@ _user_at_host() {
 
     return 0
 }
-shopt -u hostcomplete && complete -F _user_at_host -o nospace talk ytalk finger
 
 # NOTE: Using this function as a helper function is deprecated.  Use
 #       `_known_hosts_real' instead.
@@ -1338,9 +1227,6 @@ _known_hosts_real()
 
     return 0
 } # _known_hosts_real()
-complete -F _known_hosts traceroute traceroute6 tracepath tracepath6 ping \
-    ping6 fping fping6 telnet host nslookup rsh rlogin ftp dig mtr \
-    ssh-installkeys showmount
 
 # This meta-cd function observes the CDPATH variable, so that cd additionally
 # completes on directories under those specified in CDPATH.
@@ -1392,11 +1278,6 @@ _cd()
 
     return 0
 }
-if shopt -q cdable_vars; then
-    complete -v -F _cd -o nospace cd
-else
-    complete -F _cd -o nospace cd
-fi
 
 # a wrapper method for the next one, when the offset is unknown
 _command()
@@ -1411,6 +1292,7 @@ _command()
             break
         fi
     done
+	. "/etc/bash_completion.d/$1.sh" >/dev/null 2>&1 && return 124
     _command_offset $offset
 }
 
@@ -1492,15 +1374,13 @@ _command_offset()
 
     [ ${#COMPREPLY[@]} -eq 0 ] && _filedir
 }
-complete -F _command -o filenames nohup exec nice eval time ltrace then \
-    else do vsound command xargs tsocks aoss padsp
 
 _root_command()
 {
     local PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
+    _completion_loader $3
     _command $1 $2 $3
 }
-complete -F _root_command -o filenames sudo fakeroot really gksudo gksu kdesudo
 
 _longopt()
 {
@@ -1530,21 +1410,6 @@ _longopt()
         _filedir
     fi
 }
-# makeinfo and texi2dvi are defined elsewhere.
-for i in a2ps autoconf automake bc gprof ld nm objcopy objdump readelf strip \
-    bison colordiff diff patch enscript cp df dir du ln ls mkfifo mknod mv rm \
-    touch vdir awk gperf grep grub indent less m4 sed shar date \
-    tee who texindex cat csplit cut expand fmt fold head \
-    md5sum nl od paste pr ptx sha1sum sort split tac tail tr unexpand \
-    uniq wc ldd bash id irb mkdir rmdir wget curl; do
-    have $i && complete -F _longopt -o filenames $i
-done
-
-# These commands do not use filenames, so '-o filenames' is not needed.
-for i in env netstat seq uname units; do
-    have $i && complete -F _longopt -o default $i
-done
-unset i
 
 _filedir_xspec()
 {
@@ -1585,6 +1450,157 @@ _filedir_xspec()
 
     COMPREPLY=( "${toks[@]}" )
 }
+
+[ ! -z "$INSIDE_COMPLETION_LOADER" ] && return
+
+# Turn on extended globbing and programmable completion
+shopt -s extglob progcomp
+
+# A lot of the following one-liners were taken directly from the
+# completion examples provided with the bash 2.04 source distribution
+
+# Make directory commands see only directories
+complete -d pushd
+
+# The following section lists completions that are redefined later
+# Do NOT break these over multiple lines.
+#
+# START exclude -- do NOT remove this line
+# bzcmp, bzdiff, bz*grep, bzless, bzmore intentionally not here, see Debian: #455510
+complete -f -X '!*.?(t)bz?(2)' bunzip2 bzcat pbunzip2 pbzcat
+complete -f -X '!*.@(zip|ZIP|[ejw]ar|[EJW]AR|exe|EXE|pk3|wsz|zargo|xpi|sxw|o[tx]t|od[fgpst]|epub)' unzip zipinfo
+complete -f -X '*.Z' compress znew
+# zcmp, zdiff, z*grep, zless, zmore intentionally not here, see Debian: #455510
+complete -f -X '!*.@(Z|[gGd]z|t[ag]z)' gunzip zcat unpigz
+complete -f -X '!*.Z' uncompress
+# lzcmp, lzdiff intentionally not here, see Debian: #455510
+complete -f -X '!*.lzma' lzcat lzegrep lzfgrep lzgrep lzless lzmore unlzma
+complete -f -X '!*.@(xz|lzma)' unxz xzcat
+complete -f -X '!*.@(gif|jp?(e)g|miff|tif?(f)|pn[gm]|p[bgp]m|bmp|xpm|ico|xwd|tga|pcx|GIF|JP?(E)G|MIFF|TIF?(F)|PN[GM]|P[BGP]M|BMP|XPM|ICO|XWD|TGA|PCX)' ee
+complete -f -X '!*.@(gif|jp?(e)g|tif?(f)|png|p[bgp]m|bmp|x[bp]m|rle|rgb|pcx|fits|pm|GIF|JPG|JP?(E)G|TIF?(F)|PNG|P[BGP]M|BMP|X[BP]M|RLE|RGB|PCX|FITS|PM)' xv qiv
+complete -f -X '!*.@(@(?(e)ps|?(E)PS|pdf|PDF)?(.gz|.GZ|.bz2|.BZ2|.Z))' gv ggv kghostview
+complete -f -X '!*.@(dvi|DVI)?(.@(gz|Z|bz2))' xdvi
+complete -f -X '!*.@(dvi|DVI)?(.@(gz|Z|bz2))' kdvi
+complete -f -X '!*.@(dvi|DVI)' dvips dviselect dvitype dvipdf advi dvipdfm dvipdfmx
+complete -f -X '!*.@(pdf|PDF)' acroread gpdf xpdf
+complete -f -X '!*.@(?(e)ps|?(E)PS|pdf|PDF)' kpdf
+complete -f -X '!*.@(@(?(e)ps|?(E)PS|pdf|PDF|dvi|DVI)?(.gz|.GZ|.bz2|.BZ2)|cb[rz]|CB[RZ]|djv?(u)|DJV?(U)|dvi|DVI|gif|jp?(e)g|miff|tif?(f)|pn[gm]|p[bgp]m|bmp|xpm|ico|xwd|tga|pcx|GIF|JP?(E)G|MIFF|TIF?(F)|PN[GM]|P[BGP]M|BMP|XPM|ICO|XWD|TGA|PCX|fdf|FDF)' evince
+complete -f -X '!*.@(okular|@(?(e|x)ps|?(E|X)PS|pdf|PDF|dvi|DVI|cb[rz]|CB[RZ]|djv?(u)|DJV?(U)|dvi|DVI|gif|jp?(e)g|miff|tif?(f)|pn[gm]|p[bgp]m|bmp|xpm|ico|xwd|tga|pcx|GIF|JP?(E)G|MIFF|TIF?(F)|PN[GM]|P[BGP]M|BMP|XPM|ICO|XWD|TGA|PCX|epub|EPUB|odt|ODT|fb|FB|mobi|MOBI|g3|G3|chm|CHM|fdf|FDF)?(.?(gz|GZ|bz2|BZ2)))' okular
+complete -f -X '!*.@(?(e)ps|?(E)PS|pdf|PDF)' ps2pdf ps2pdf12 ps2pdf13 ps2pdf14 ps2pdfwr
+complete -f -X '!*.texi*' makeinfo texi2html
+complete -f -X '!*.@(?(la)tex|?(LA)TEX|texi|TEXI|dtx|DTX|ins|INS|ltx|LTX)' tex latex slitex jadetex pdfjadetex pdftex pdflatex texi2dvi
+complete -f -X '!*.@(mp3|MP3)' mpg123 mpg321 madplay
+complete -f -X '!*@(.@(mp?(e)g|MP?(E)G|wma|avi|AVI|asf|vob|VOB|bin|dat|divx|DIVX|vcd|ps|pes|fli|flv|FLV|fxm|FXM|viv|rm|ram|yuv|mov|MOV|qt|QT|wmv|mp[234]|MP[234]|m4[pv]|M4[PV]|mkv|MKV|og[gmv]|OG[GMV]|t[ps]|T[PS]|wav|WAV|flac|FLAC|asx|ASX|mng|MNG|srt|m[eo]d|M[EO]D|s[3t]m|S[3T]M|it|IT|xm|XM)|+([0-9]).@(vdr|VDR))' xine aaxine fbxine kaffeine dragon
+complete -f -X '!*.@(avi|asf|wmv)' aviplay
+complete -f -X '!*.@(rm?(j)|ra?(m)|smi?(l))' realplay
+complete -f -X '!*.@(mpg|mpeg|avi|mov|qt)' xanim
+complete -f -X '!*.@(ogg|OGG|m3u|flac|spx)' ogg123
+complete -f -X '!*.@(mp3|MP3|ogg|OGG|pls|m3u)' gqmpeg freeamp
+complete -f -X '!*.fig' xfig
+complete -f -X '!*.@(mid?(i)|MID?(I)|cmf|CMF)' playmidi
+complete -f -X '!*.@(mid?(i)|MID?(I)|rmi|RMI|rcp|RCP|[gr]36|[GR]36|g18|G18|mod|MOD|xm|XM|it|IT|x3m|X3M|s[3t]m|S[3T]M|kar|KAR)' timidity
+complete -f -X '!*.@(m[eo]d|M[EO]D|s[3t]m|S[3T]M|xm|XM|it|IT)' modplugplay modplug123
+complete -f -X '*.@(o|so|so.!(conf)|a|rpm|gif|GIF|jp?(e)g|JP?(E)G|mp3|MP3|mp?(e)g|MPG|avi|AVI|asf|ASF|ogg|OGG|class|CLASS)' vi vim gvim rvim view rview rgvim rgview gview emacs xemacs sxemacs kate kwrite
+complete -f -X '!*.@([eE][xX][eE]?(.[sS][oO])|[cC][oO][mM]|[sS][cC][rR])' wine
+complete -f -X '!*.@(zip|ZIP|z|Z|gz|GZ|tgz|TGZ)' bzme
+# konqueror not here on purpose, it's more than a web/html browser
+complete -f -X '!*.@(?([xX]|[sS])[hH][tT][mM]?([lL]))' netscape mozilla lynx opera galeon dillo elinks amaya firefox mozilla-firefox iceweasel google-chrome chromium-browser epiphany
+complete -f -X '!*.@(sxw|stw|sxg|sgl|doc?([mx])|dot?([mx])|rtf|txt|htm|html|odt|ott|odm)' oowriter
+complete -f -X '!*.@(sxi|sti|pps?(x)|ppt?([mx])|pot?([mx])|odp|otp)' ooimpress
+complete -f -X '!*.@(sxc|stc|xls?([bmx])|xlw|xlt?([mx])|[ct]sv|ods|ots)' oocalc
+complete -f -X '!*.@(sxd|std|sda|sdd|odg|otg)' oodraw
+complete -f -X '!*.@(sxm|smf|mml|odf)' oomath
+complete -f -X '!*.odb' oobase
+complete -f -X '!*.rpm' rpm2cpio
+complete -f -X '!*.s@(qlite?(3)|?(3)db)' sqlite3
+complete -f -X '!*.aux' bibtex
+complete -f -X '!*.po' poedit gtranslator kbabel lokalize
+complete -f -X '!*.@([Pp][Rr][Gg]|[Cc][Ll][Pp])' harbour gharbour hbpp
+complete -f -X '!*.[Hh][Rr][Bb]' hbrun
+complete -f -X '!*.ly' lilypond ly2dvi
+complete -f -X '!*.@(dif?(f)|?(d)patch)?(.@([gx]z|bz2|lzma))' cdiff
+complete -f -X '!*.@(dif?(f)|?(d)patch)' kompare
+complete -f -X '!*.lyx' lyx
+# FINISH exclude -- do not remove this line
+
+# start of section containing compspecs that can be handled within bash
+
+# user commands see only users
+complete -u su passwd write chfn groups slay w sux
+
+# bg completes with stopped jobs
+complete -A stopped -P '"%' -S '"' bg
+
+# other job commands
+complete -j -P '"%' -S '"' fg jobs disown
+
+# readonly and unset complete with shell variables
+complete -v readonly unset
+
+# set completes with set options
+complete -A setopt set
+
+# shopt completes with shopt options
+complete -A shopt shopt
+
+# helptopics
+complete -A helptopic help
+
+# unalias completes with aliases
+complete -a unalias
+
+# bind completes with readline bindings (make this more intelligent)
+complete -A binding bind
+
+# type and which complete on commands
+complete -c command type which
+
+# builtin completes on builtins
+complete -b builtin
+
+
+shopt -u hostcomplete && complete -F _user_at_host -o nospace talk ytalk finger
+
+complete -F _known_hosts traceroute traceroute6 tracepath tracepath6 ping \
+    ping6 fping fping6 telnet host nslookup rsh rlogin ftp dig mtr \
+    ssh-installkeys showmount
+
+
+if shopt -q cdable_vars; then
+    complete -v -F _cd -o nospace cd
+else
+    complete -F _cd -o nospace cd
+fi
+
+complete -F _command -o filenames nohup exec nice eval time ltrace then \
+    else do vsound command xargs tsocks aoss padsp
+
+complete -F _root_command -o filenames sudo fakeroot really gksudo gksu kdesudo
+
+
+# makeinfo and texi2dvi are defined elsewhere.
+for i in a2ps autoconf automake bc gprof ld nm objcopy objdump readelf strip \
+    bison colordiff diff patch enscript cp df dir du ln ls mkfifo mknod mv rm \
+    touch vdir awk gperf grep grub indent less m4 sed shar date \
+    tee who texindex cat csplit cut expand fmt fold head \
+    md5sum nl od paste pr ptx sha1sum sort split tac tail tr unexpand \
+    uniq wc ldd bash id irb mkdir rmdir wget curl; do
+    have $i && complete -F _longopt -o filenames $i
+done
+
+# These commands do not use filenames, so '-o filenames' is not needed.
+for i in env netstat seq uname units; do
+    have $i && complete -F _longopt -o default $i
+done
+unset i
+
+
+# a little help for FreeBSD ports users
+[ $UNAME = FreeBSD ] && complete -W 'index search fetch fetch-list extract \
+    patch configure build install reinstall deinstall clean clean-depends \
+    kernel buildworld' make
+
+
 list=( $( sed -ne '/^# START exclude/,/^# FINISH exclude/p' "$BASH_COMPLETION" | \
     # read exclusion compspecs
     (
@@ -1609,24 +1625,14 @@ fi
 unset list
 
 # source completion directory definitions
-if [[ -d $BASH_COMPLETION_COMPAT_DIR && -r $BASH_COMPLETION_COMPAT_DIR && \
-    -x $BASH_COMPLETION_COMPAT_DIR ]]; then
-    for i in $(LC_ALL=C command ls "$BASH_COMPLETION_COMPAT_DIR"); do
-        i=$BASH_COMPLETION_COMPAT_DIR/$i
-        [[ ${i##*/} != @(*~|*.bak|*.swp|\#*\#|*.dpkg*|*.rpm@(orig|new|save)) \
-            && ( -f $i || -h $i ) && -r $i ]] && . "$i"
-    done
-fi
-if [[ $BASH_COMPLETION_DIR != $BASH_COMPLETION_COMPAT_DIR && \
-    -d $BASH_COMPLETION_DIR && -r $BASH_COMPLETION_DIR && \
-    -x $BASH_COMPLETION_DIR ]]; then
-    for i in $(LC_ALL=C command ls "$BASH_COMPLETION_DIR"); do
-        i=$BASH_COMPLETION_DIR/$i
-        [[ ${i##*/} != @(*~|*.bak|*.swp|\#*\#|*.dpkg*|*.rpm@(orig|new|save)) \
-            && ( -f $i || -h $i ) && -r $i ]] && . "$i"
-    done
-fi
-unset i
+function _completion_loader
+{
+    export INSIDE_COMPLETION_LOADER=1
+    . /etc/bash_completion
+    export INSIDE_COMPLETION_LOADER=""
+    . "/etc/bash_completion.d/$1" >/dev/null 2>&1 && return 124
+}
+complete -D -F _completion_loader
 
 # source user completion file
 [[ $BASH_COMPLETION != ~/.bash_completion && -r ~/.bash_completion ]] \
