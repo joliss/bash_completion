@@ -1,0 +1,15 @@
+== This repository is an attmept to solve:
+
+https://bugs.launchpad.net/ubuntu/+source/bash-completion/+bug/384017
+
+
+== Using
+
+* replace your /etc/bash_completion with bash_completion script from this repo.
+* run `sudo ./update-a update-bash-completion.sh` to create links for command
+  that have completition rules grouped in one file
+
+== Comments
+
+The second step is a hack to overcome current design optimizations and could be
+eliminated if this solution was adopted for wide use.
