@@ -9,6 +9,7 @@ for i in *; do
 	}
 	for com in `cat $i | grep 'complete -F' | awk  '{print $NF}' | fgrep -v '|' | fgrep -v '$' | grep -v '&'`; do
 		if [ "$com" != "$i" ]; then
+			echo "$com -> $i"
 			ln -s "$i" "$com"
 		fi
 	done
