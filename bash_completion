@@ -1456,6 +1456,8 @@ _filedir_xspec()
 # Turn on extended globbing and programmable completion
 shopt -s extglob progcomp
 
+complete -D -F _completion_loader
+
 # A lot of the following one-liners were taken directly from the
 # completion examples provided with the bash 2.04 source distribution
 
@@ -1630,9 +1632,12 @@ function _completion_loader
     export INSIDE_COMPLETION_LOADER=1
     . /etc/bash_completion
     export INSIDE_COMPLETION_LOADER=""
-    . "/etc/bash_completion.d/$1" >/dev/null 2>&1 && return 124
+    if [ -e "/etc/bash_completion.d/$1" ]; then
+        . "/etc/bash_completion.d/$1" >/dev/null 2>&1 && return 124
+    else
+        _filedir
+    fi
 }
-complete -D -F _completion_loader
 
 # source user completion file
 [[ $BASH_COMPLETION != ~/.bash_completion && -r ~/.bash_completion ]] \
