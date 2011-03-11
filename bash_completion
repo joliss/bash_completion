@@ -527,7 +527,6 @@ _filedir()
     #     $ foo a'&b/<TAB>  # Nothing happens
     #
     if [[ "$1" != -d ]]; then
-        xspec=${1:+"!*.$1"}
         if [[ ${cur:0:1} == "'" && ${BASH_VERSINFO[0]} -ge 4 ]]; then
             toks=( ${toks[@]-} $(
                 eval compgen -f -X \"\$xspec\" -- $quoted
@@ -1635,6 +1634,7 @@ function _completion_loader
     if [ -e "/etc/bash_completion.d/$1" ]; then
         . "/etc/bash_completion.d/$1" >/dev/null 2>&1 && return 124
     else
+        cur="$2"
         _filedir
     fi
 }
